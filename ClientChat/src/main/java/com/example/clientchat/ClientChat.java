@@ -52,6 +52,7 @@ public class ClientChat extends Application {
         authLoader.setLocation(ClientChat.class.getResource("authDialog.fxml"));
         AnchorPane authDialogPanel = authLoader.load();
 //        https://stackoverflow.com/questions/28852339/javafx-webengine-timeout-handling
+
         System.out.println("Start Form");
         authStage = new Stage();
         authStage.initOwner(chatStage);
