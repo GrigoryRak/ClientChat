@@ -76,11 +76,6 @@ public class ClientChat extends Application {
         getAuthStage().close();
     }
 
-    public void closeWindowsTimeout() {
-        getAuthController().close();
-        getAuthStage().close();
-    }
-
     @Override
     public void init() {
         INSTANCE = this;
