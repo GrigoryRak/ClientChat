@@ -1,6 +1,7 @@
 package com.example.clientchat.dialogs;
 
 import com.example.clientchat.ClientChat;
+import com.example.clientchat.controllers.ClientController;
 import javafx.scene.control.Alert;
 
 public class Dialogs {
@@ -38,6 +39,24 @@ public class Dialogs {
         public void show(){
             showDialog(Alert.AlertType.WARNING, TITLE, TITLE, message);
         }
+    }
+
+    public enum ServiceCommandNotFound{
+        SERVICE_COMMAND_NOT_FOUND("Сервисной команды не существует");
+
+        private static final String TITLE = "Ошибка ввода команды";
+        private static final String TYPE = TITLE;
+
+        private final String message;
+
+        ServiceCommandNotFound(String message) {
+            this.message = message;
+        }
+
+        public void show(){
+            showDialog(Alert.AlertType.ERROR, TITLE, TITLE, message);
+        }
+
     }
 
     public enum NetworkError {

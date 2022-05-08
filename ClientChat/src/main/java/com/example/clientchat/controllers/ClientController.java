@@ -1,5 +1,6 @@
 package com.example.clientchat.controllers;
 
+import com.example.clientchat.ClientChat;
 import com.example.clientchat.dialogs.Dialogs;
 import com.example.clientchat.model.Network;
 import com.example.clientchat.model.ReadMessageListener;
@@ -41,23 +42,35 @@ public class ClientController {
             return;
         }
 
-        String sender = null;
-        if (!userList.getSelectionModel().isEmpty()) {
-            sender = userList.getSelectionModel().getSelectedItem().toString();
-        }
-
-        try {
-            if (sender != null) {
-                Network.getInstance().sendPrivateMessage(sender, message);
-            } else {
-                Network.getInstance().sendMessage(message);
+        if (message.startsWith("/")) {
+            serviceCommandsClient(message);
+        } else {
+            String sender = null;
+            if (!userList.getSelectionModel().isEmpty()) {
+                sender = userList.getSelectionModel().getSelectedItem().toString();
             }
 
-        } catch (IOException e) {
-            Dialogs.NetworkError.SEND_MESSAGE.show();
-        }
+            try {
+                if (sender != null) {
+                    Network.getInstance().sendPrivateMessage(sender, message);
+                } else {
+                    Network.getInstance().sendMessage(message);
+                }
 
-        appendMessageToChat("Я", message);
+            } catch (IOException e) {
+                Dialogs.NetworkError.SEND_MESSAGE.show();
+            }
+
+            appendMessageToChat("Я", message);
+        }
+    }
+
+    public void serviceCommandsClient(String command) {
+        if (command.equalsIgnoreCase("/exit")) {
+            ClientChat.getInstance().getChatStage().close();
+        } else {
+            Dialogs.ServiceCommandNotFound.SERVICE_COMMAND_NOT_FOUND.show();
+        }
     }
 
     public void appendMessageToChat(String sender, String message) {
