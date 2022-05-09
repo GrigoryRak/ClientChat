@@ -2,6 +2,7 @@ package com.example.clientchat;
 
 import com.example.clientchat.controllers.AuthController;
 import com.example.clientchat.controllers.ClientController;
+import com.example.clientchat.model.AuthTimeout;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +12,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Timer;
 
 public class ClientChat extends Application {
 
@@ -22,15 +24,17 @@ public class ClientChat extends Application {
     private FXMLLoader chatWindowLoader;
     private FXMLLoader authLoader;
 
+    private Timer mTimer;
+    private AuthTimeout mMyTimerTask;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.chatStage = primaryStage;
-
         initViews();
         getChatStage().show();
         getAuthStage().show();
         getAuthController().initializeMessageHandler();
+
     }
 
     private void initViews() throws IOException {
@@ -41,22 +45,28 @@ public class ClientChat extends Application {
     private void initChatWindow() throws IOException {
         chatWindowLoader = new FXMLLoader();
         chatWindowLoader.setLocation(ClientChat.class.getResource("chat-template.fxml"));
-
         Parent root = chatWindowLoader.load();
         chatStage.setScene(new Scene(root));
+        chatStage.setTitle("Сетевой чат");
         getChatController().initializeMessageHandler();
     }
 
     private void initAuthDialog() throws IOException {
+        if (mTimer != null) {
+            mTimer.cancel();
+        }
+        mTimer = new Timer(true);
+        mMyTimerTask = new AuthTimeout();
         authLoader = new FXMLLoader();
         authLoader.setLocation(ClientChat.class.getResource("authDialog.fxml"));
         AnchorPane authDialogPanel = authLoader.load();
-//        https://stackoverflow.com/questions/28852339/javafx-webengine-timeout-handling
-        System.out.println("Start Form");
         authStage = new Stage();
         authStage.initOwner(chatStage);
         authStage.initModality(Modality.WINDOW_MODAL);
+        authStage.setTitle("Окно авторизации");
+        authStage.setResizable(false);
         authStage.setScene(new Scene(authDialogPanel));
+        mTimer.schedule(mMyTimerTask, 0);
     }
 
     public void switchToMainChatWindow(String userName) {

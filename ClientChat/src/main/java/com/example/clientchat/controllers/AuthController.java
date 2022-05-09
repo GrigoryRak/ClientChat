@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class AuthController{
+public class AuthController {
 
     @FXML
     public AnchorPane authWindow;
@@ -81,5 +81,4 @@ public class AuthController{
     public void close() {
         getNetwork().removeReadMessageListener(readMessageListener);
     }
-
 }

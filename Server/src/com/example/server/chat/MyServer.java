@@ -51,6 +51,7 @@ public class MyServer {
         }
     }
 
+
     private void notifyUserListUpdated() throws IOException {
         List<String> users = new ArrayList<>();
         for (ClientHandler client : clients) {
@@ -68,7 +69,6 @@ public class MyServer {
                 return true;
             }
         }
-
         return false;
     }
 

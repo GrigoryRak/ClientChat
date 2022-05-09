@@ -40,6 +40,24 @@ public class Dialogs {
         }
     }
 
+    public enum ServiceCommandNotFound{
+        SERVICE_COMMAND_NOT_FOUND("Сервисной команды не существует");
+
+        private static final String TITLE = "Ошибка ввода команды";
+        private static final String TYPE = TITLE;
+
+        private final String message;
+
+        ServiceCommandNotFound(String message) {
+            this.message = message;
+        }
+
+        public void show(){
+            showDialog(Alert.AlertType.ERROR, TITLE, TITLE, message);
+        }
+
+    }
+
     public enum NetworkError {
         SEND_MESSAGE("Не удалось отправить сообщение!"),
         SERVER_CONNECT("Не удалось установить соединение с сервером!");
