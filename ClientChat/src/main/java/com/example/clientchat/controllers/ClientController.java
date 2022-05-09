@@ -49,7 +49,6 @@ public class ClientController {
             if (!userList.getSelectionModel().isEmpty()) {
                 sender = userList.getSelectionModel().getSelectedItem().toString();
             }
-
             try {
                 if (sender != null) {
                     Network.getInstance().sendPrivateMessage(sender, message);

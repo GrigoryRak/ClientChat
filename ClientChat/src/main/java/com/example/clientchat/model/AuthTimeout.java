@@ -11,7 +11,6 @@ public class AuthTimeout extends TimerTask {
 
     @Override
     public void run() {
-        System.out.println("Timer timeoutTask started at: " + new Date());
         timeoutTask();
         Platform.runLater(() -> {
             if (!Network.getInstance().isConnected()) {

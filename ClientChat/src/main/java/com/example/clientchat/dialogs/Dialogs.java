@@ -1,7 +1,6 @@
 package com.example.clientchat.dialogs;
 
 import com.example.clientchat.ClientChat;
-import com.example.clientchat.controllers.ClientController;
 import javafx.scene.control.Alert;
 
 public class Dialogs {

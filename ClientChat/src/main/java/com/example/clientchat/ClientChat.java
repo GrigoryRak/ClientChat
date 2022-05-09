@@ -66,7 +66,6 @@ public class ClientChat extends Application {
         authStage.setTitle("Окно авторизации");
         authStage.setResizable(false);
         authStage.setScene(new Scene(authDialogPanel));
-        System.out.println("timeoutTask started");
         mTimer.schedule(mMyTimerTask, 0);
     }
 
